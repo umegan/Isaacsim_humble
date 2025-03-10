@@ -38,14 +38,18 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 
 ### Isaac Sim の実行
 
-Remote kara GUI 付きで Isaac Sim を起動するには:
+1. RemoteからIsaac Sim を起動するには:
 
 ```bash
 cd /isaac-sim
 ./runoldstreaming.sh
 ```
 
-Omniver Streaming Client KARA SETUZOKU:
+2. Omniver Streaming Client から接続を行う:
+
+https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
+
+
 
 ### ROS 2 Humble の操作
 
