@@ -20,4 +20,5 @@ docker run --name isaac-sim-local -it --rm \
   -v ~/docker/isaac-sim/data:/root/.local/share/ov/data:rw \
   -v ~/docker/isaac-sim/documents:/root/Documents:rw \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+  -v $HOME/.Xauthority:/root/.Xauthority:ro \
   isaac-sim:custom
