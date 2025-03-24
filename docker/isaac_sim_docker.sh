@@ -21,4 +21,5 @@ docker run --name isaac-sim-local -it --rm \
   -v ~/docker/isaac-sim/documents:/root/Documents:rw \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
   -v $HOME/.Xauthority:/root/.Xauthority:ro \
+  -v /home/an/turtlebot3_ws:/root/turtlebot3_ws:rw \
   isaac-sim:custom
