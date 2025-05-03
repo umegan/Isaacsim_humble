@@ -1,4 +1,3 @@
-
 # Isaac Sim と ROS 2 Humble
 
 このリポジトリには、Docker コンテナ内で NVIDIA Isaac Sim 4.5.0 と ROS 2 Humble 統合をセットアップするための設定ファイルとスクリプトが含まれています。
@@ -36,6 +35,48 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 
 ## 使用方法
 
+### Docker Compose を使用して Isaac Sim を実行する
+
+このリポジトリには Docker Compose の設定ファイルが含まれています。これを使用して簡単に Isaac Sim コンテナを起動できます。
+
+1. まず、Docker Compose がインストールされていることを確認してください:
+
+```bash
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
+```
+
+2. Docker Compose で Isaac Sim コンテナを起動します:
+
+```bash
+cd /home/$USER$/sim
+docker compose up
+```
+
+これにより、バックグラウンドで実行したい場合は `-d` フラグを追加します:
+
+```bash
+docker compose up -d
+```
+
+3. コンテナを停止するには:
+
+```bash
+docker compose down
+```
+
+4. コンテナのログを表示するには:
+
+```bash
+docker compose logs
+```
+
+5. 実行中のコンテナに接続するには:
+
+```bash
+docker exec -it isaac-sim bash
+```
+
 ### Isaac Sim の実行
 
 1. RemoteからIsaac Sim を起動するには:
@@ -48,8 +89,6 @@ cd /isaac-sim
 2. Omniver Streaming Client から接続を行う:
 
 https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
-
-
 
 ### ROS 2 Humble の操作
 
@@ -67,6 +106,8 @@ https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
 .
 ├── LICENSE - MIT ライセンス
 ├── README.md - このファイル
+├── docker-compose.yml - Docker Compose 設定ファイル
+├── runoldstreaming.sh - Isaac Sim ストリーミングサーバーを起動するスクリプト
 ├── isaac_sim_docker.sh - Isaac Sim コンテナを実行するスクリプト（ルートディレクトリのコピー）
 └── docker/
     ├── Dockerfile - Isaac Sim + ROS 2 Humble イメージをビルドする
