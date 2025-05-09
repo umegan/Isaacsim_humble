@@ -2,12 +2,14 @@
 
 このリポジトリには、Docker コンテナ内で NVIDIA Isaac Sim 4.5.0 と ROS 2 Humble 統合をセットアップするための設定ファイルとスクリプトが含まれています。
 
+この環境を使用することで、Turllebot Limeのデモを含めたIsaac Sim 4.5.0の環境を構築することができます。
+
 ## 前提条件
 
 - 最新ドライバーがインストールされた NVIDIA GPU
 - NVIDIA Container Toolkit がインストールされた Docker
 - 少なくとも 30GB の空きディスク容量
-- Ubuntu 20.04 以降（推奨）
+- Ubuntu 22.04 
 
 ## インストール方法
 
@@ -22,7 +24,7 @@ cd Isaacsim_humble
 
 ```bash
 cd docker
-docker build -t isaac-sim:custom .
+docker build -t isaac_ros_ws:latest .
 ```
 
 これにより、NVIDIA の Isaac Sim 4.5.0 イメージをベースに、ROS 2 Humble 統合を含むカスタム Docker イメージがビルドされます。
@@ -35,55 +37,13 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 
 ## 使用方法
 
-### Docker Compose を使用して Isaac Sim を実行する
-
-このリポジトリには Docker Compose の設定ファイルが含まれています。これを使用して簡単に Isaac Sim コンテナを起動できます。
-
-1. まず、Docker Compose がインストールされていることを確認してください:
-
-```bash
-sudo apt-get update
-sudo apt-get install docker-compose-plugin
-```
-
-2. Docker Compose で Isaac Sim コンテナを起動します:
-
-```bash
-cd /home/$USER$/sim
-docker compose up
-```
-
-これにより、バックグラウンドで実行したい場合は `-d` フラグを追加します:
-
-```bash
-docker compose up -d
-```
-
-3. コンテナを停止するには:
-
-```bash
-docker compose down
-```
-
-4. コンテナのログを表示するには:
-
-```bash
-docker compose logs
-```
-
-5. 実行中のコンテナに接続するには:
-
-```bash
-docker exec -it isaac-sim bash
-```
 
 ### Isaac Sim の実行
 
 1. RemoteからIsaac Sim を起動するには:
 
 ```bash
-cd /isaac-sim
-./runoldstreaming.sh
+runoldstreaming
 ```
 
 2. Omniver Streaming Client から接続を行う:
@@ -106,9 +66,7 @@ https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
 .
 ├── LICENSE - MIT ライセンス
 ├── README.md - このファイル
-├── docker-compose.yml - Docker Compose 設定ファイル
-├── runoldstreaming.sh - Isaac Sim ストリーミングサーバーを起動するスクリプト
-├── isaac_sim_docker.sh - Isaac Sim コンテナを実行するスクリプト（ルートディレクトリのコピー）
+├── lime_ws - Isaac Sim用のTurtlebot Limeをこちら（）からCloneした物
 └── docker/
     ├── Dockerfile - Isaac Sim + ROS 2 Humble イメージをビルドする
     └── isaac_sim_docker.sh - Isaac Sim コンテナを実行するスクリプト
