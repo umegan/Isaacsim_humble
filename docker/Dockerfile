@@ -50,7 +50,7 @@ RUN apt-get update \
        # RMW implementation
        ros-humble-rmw-cyclonedds-cpp \
        # GUI tools
-       ros-humble-rqt-console ros-humble-rqt ros-humble-rviz2 \
+       ros-humble-rqt* ros-humble-rviz2 \
        # TurtleBot3 Lime dependencies
        ros-humble-dynamixel-sdk \
        ros-humble-ros2-control \
@@ -76,23 +76,45 @@ RUN colcon mixin add default \
       https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml \
     && colcon metadata update
 
-# Workspace setup for TurtleBot3 Lime
-WORKDIR /turtlebot3_lime_ws
-RUN mkdir -p src
+# Install Miniconda
+RUN curl -sSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh \
+    && bash miniconda.sh -b -p /opt/conda \
+    && rm miniconda.sh \
+    && /opt/conda/bin/conda clean --all --yes \
+    && ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+    && echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc \
+    && echo "conda activate base" >> ~/.bashrc
+
+# Make conda available in the current session
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# Install Isaac lab
+RUN apt-get update \
+    && git clone https://github.com/umegan/IsaacLab_lime.git /IsaacLab \
+    && cd /IsaacLab \
+    && ln -s /isaac-sim _isaac_sim \
+    && ./isaaclab.sh --conda lab \
+    && . /opt/conda/etc/profile.d/conda.sh \
+    && conda activate lab \
+    && ./isaaclab.sh --install 
+
+
 # Option 1: Clone your local TurtleBot3 Lime sources at runtime via -v
 # Option 2: Uncomment below to fetch directly (adjust URL as needed)
 # RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git src/turtlebot3
 
 # Install any missing dependencies via rosdep, then build the workspace
-RUN rosdep install --from-paths src --ignore-src -r -y \
-    && source /opt/ros/$ROS_DISTRO/setup.bash \
-    && colcon build --symlink-install
+# RUN rosdep install --from-paths src --ignore-src -r -y \
+#     && source /opt/ros/$ROS_DISTRO/setup.bash \
+#     && colcon build --symlink-install
+
 
 # Environment setup for runtime
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc \
     && echo 'export ROS_DOMAIN_ID=31' >> ~/.bashrc \
     && echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc \
-    && echo 'source /turtlebot3_lime_ws/install/setup.bash' >> ~/.bashrc
-
+    && echo 'source /root/turtlebot3_lime_ws/install/setup.bash' >> ~/.bashrc \
+    && echo 'export XDG_RUNTIME_DIR=/tmp/runtime-root' >> ~/.bashrc
+    
 # Default command
 CMD ["/bin/bash"]
