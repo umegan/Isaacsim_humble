@@ -24,7 +24,7 @@ cd Isaacsim_humble
 
 ```bash
 cd docker
-docker build -t isaac_ros_ws:latest .
+docker build -t isaac_ws:latest .
 ```
 
 これにより、NVIDIA の Isaac Sim 4.5.0 イメージをベースに、ROS 2 Humble 統合を含むカスタム Docker イメージがビルドされます。
