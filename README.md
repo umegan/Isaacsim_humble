@@ -43,7 +43,7 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 1. RemoteからIsaac Sim を起動するには:
 
 ```bash
-runoldstreaming
+runheadless
 ```
 
 2. Omniver Streaming Client から接続を行う:
