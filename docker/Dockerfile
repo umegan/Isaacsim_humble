@@ -113,7 +113,6 @@ RUN apt-get update \
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc \
     && echo 'export ROS_DOMAIN_ID=31' >> ~/.bashrc \
     && echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc \
-    && echo 'source /root/turtlebot3_lime_ws/install/setup.bash' >> ~/.bashrc \
     && echo 'export XDG_RUNTIME_DIR=/tmp/runtime-root' >> ~/.bashrc
     
 # Default command
