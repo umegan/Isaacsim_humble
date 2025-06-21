@@ -16,15 +16,15 @@
 ### 1. このリポジトリをクローンする
 
 ```bash
-git clone https://github.com/umegan/Isaacsim_humble.git
-cd Isaacsim_humble
+git clone https://github.com/umegan/Isaacsim_humble.git isaac_humble
+cd isaac_humble
 ```
 
 ### 2. Docker イメージをビルドする
 
 ```bash
 cd docker
-docker build -t isaac_ros_ws:latest .
+docker build -t isaac_ws:latest .
 ```
 
 これにより、NVIDIA の Isaac Sim 4.5.0 イメージをベースに、ROS 2 Humble 統合を含むカスタム Docker イメージがビルドされます。
@@ -40,15 +40,22 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 
 ### Isaac Sim の実行
 
-1. RemoteからIsaac Sim を起動するには:
-
+1. Docker containerを起動する
 ```bash
-runoldstreaming
+isaac_sim_docker.sh
 ```
 
-2. Omniver Streaming Client から接続を行う:
+2. RemoteからIsaac Sim を起動するには:
+
+```bash
+runheadless
+```
+
+3. Omniver Streaming Client から接続を行う:
 
 https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
+
+サーバ側のIPアドレスを記入して起動する
 
 ### ROS 2 Humble の操作
 

@@ -99,21 +99,10 @@ RUN apt-get update \
     && ./isaaclab.sh --install 
 
 
-# Option 1: Clone your local TurtleBot3 Lime sources at runtime via -v
-# Option 2: Uncomment below to fetch directly (adjust URL as needed)
-# RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git src/turtlebot3
-
-# Install any missing dependencies via rosdep, then build the workspace
-# RUN rosdep install --from-paths src --ignore-src -r -y \
-#     && source /opt/ros/$ROS_DISTRO/setup.bash \
-#     && colcon build --symlink-install
-
-
 # Environment setup for runtime
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc \
     && echo 'export ROS_DOMAIN_ID=31' >> ~/.bashrc \
     && echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc \
-    && echo 'source /root/turtlebot3_lime_ws/install/setup.bash' >> ~/.bashrc \
     && echo 'export XDG_RUNTIME_DIR=/tmp/runtime-root' >> ~/.bashrc
     
 # Default command
