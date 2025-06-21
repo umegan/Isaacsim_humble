@@ -53,7 +53,7 @@ runheadless
 
 3. Omniver Streaming Client から接続を行う:
 
-https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
+https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html
 
 サーバ側のIPアドレスを記入して起動する
 
