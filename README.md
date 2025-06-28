@@ -2,7 +2,7 @@
 
 このリポジトリには、Docker コンテナ内で NVIDIA Isaac Sim 4.5.0 と ROS 2 Humble 統合をセットアップするための設定ファイルとスクリプトが含まれています。
 
-この環境を使用することで、Turllebot Limeのデモを含めたIsaac Sim 4.5.0の環境を構築することができます。
+この環境を使用することで、ROS2を含めたIsaac Sim 4.5.0の環境を構築することができます。
 
 ## 前提条件
 
@@ -16,8 +16,8 @@
 ### 1. このリポジトリをクローンする
 
 ```bash
-git clone https://github.com/umegan/Isaacsim_humble.git
-cd Isaacsim_humble
+git clone https://github.com/umegan/Isaacsim_humble.git isaac_humble
+cd isaac_humble
 ```
 
 ### 2. Docker イメージをビルドする
@@ -40,25 +40,23 @@ mkdir -p ~/docker/isaac-sim/{cache/kit,cache/ov,cache/pip,cache/glcache,cache/co
 
 ### Isaac Sim の実行
 
-1. RemoteからIsaac Sim を起動するには:
+1. Docker containerを起動する
+```bash
+isaac_sim_docker.sh
+```
+
+2. RemoteからIsaac Sim を起動するには:
 
 ```bash
 runheadless
 ```
 
-2. Omniver Streaming Client から接続を行う:
+3. Omniver Streaming Client から接続を行う:
 
-https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
+https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html
 
-### ROS 2 Humble の操作
+サーバ側のIPアドレスを記入して起動する
 
-コンテナには ROS 2 Humble が事前にインストールされています。以下の環境変数が既に設定されています:
-
-- RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-- ループバックでのマルチキャストが有効化されています
-- ROS 2 のソースは .bashrc に追加されています
-
-コンテナ内の `/root/colcon_ws` に ROS 2 ワークスペースを作成できます。
 
 ## プロジェクト構造
 
@@ -66,7 +64,6 @@ https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
 .
 ├── LICENSE - MIT ライセンス
 ├── README.md - このファイル
-├── lime_ws - Isaac Sim用のTurtlebot Limeをこちら（）からCloneした物
 └── docker/
     ├── Dockerfile - Isaac Sim + ROS 2 Humble イメージをビルドする
     └── isaac_sim_docker.sh - Isaac Sim コンテナを実行するスクリプト
